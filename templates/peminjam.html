@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+        <h2 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Misi Peminjaman</h2>
+        <p class="text-gray-400 mt-2">Silakan pilih log data yang ingin Anda unduh ke perangkat Anda.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        {% for b in buku %}
+        <div class="glass p-6 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 flex flex-col justify-between group border-t-4 border-t-purple-500">
+            <div class="mb-6">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="px-2 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-medium rounded-full border border-emerald-500/20">Sinyal Ditemukan</span>
+                    <span class="text-gray-500 text-sm font-mono">#{{ b['id'] }}</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">{{ b['judul'] }}</h3>
+                <p class="text-gray-400 text-sm">Oleh: {{ b['penulis'] }}</p>
+            </div>
+
+            <form method="POST" class="mt-auto space-y-4">
+                <input type="hidden" name="buku_id" value="{{ b['id'] }}">
+                <div>
+                    <input type="text" name="nama_peminjam" placeholder="Identitas Astronaut (Nama Anda)" required class="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder-gray-600">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-3 rounded-lg text-sm shadow-lg hover:shadow-purple-500/30 transition-all">
+                    Inisiasi Peminjaman
+                </button>
+            </form>
+        </div>
+        {% else %}
+        <div class="col-span-full glass p-16 text-center rounded-2xl border border-dashed border-gray-700">
+            <div class="text-6xl mb-4">📡</div>
+            <h3 class="text-2xl font-bold text-gray-300">Radar Kosong</h3>
+            <p class="text-gray-500 mt-2">Tidak mendeteksi buku yang tersedia di orbit saat ini.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

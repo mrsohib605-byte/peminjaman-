@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Library - Peminjaman Buku</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            /* Background gradien ala luar angkasa */
+            background: radial-gradient(circle at bottom, #1b2735 0%, #090a0f 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+        .glass {
+            /* Efek kaca untuk elemen card dan navbar */
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <nav class="glass p-4 sticky top-0 z-50 shadow-2xl">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 hover:to-pink-500 transition-all">
+                🚀 Stellar Library
+            </a>
+            <div class="space-x-6 text-sm font-semibold tracking-wide">
+                <a href="/pustakawan" class="text-gray-300 hover:text-blue-400 transition-colors">PUSTAKAWAN</a>
+                <a href="/peminjam" class="text-gray-300 hover:text-purple-400 transition-colors">PEMINJAM</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-6 mt-8">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

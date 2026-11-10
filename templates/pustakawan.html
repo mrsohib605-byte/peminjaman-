@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-5xl mx-auto space-y-12">
+
+    <!-- Form Tambah Buku -->
+    <div class="glass p-8 rounded-2xl shadow-2xl border-l-4 border-l-blue-500">
+        <h2 class="text-3xl font-bold mb-6 text-blue-400">Registrasi Buku Baru</h2>
+        <form method="POST" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Judul Buku</label>
+                    <input type="text" name="judul" required class="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-gray-600" placeholder="Misal: Teori Relativitas">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Penulis</label>
+                    <input type="text" name="penulis" required class="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-gray-600" placeholder="Misal: Albert Einstein">
+                </div>
+            </div>
+            <button type="submit" class="w-full md:w-auto px-8 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-blue-500/30 transition-all mt-4">
+                Orbitkan Buku
+            </button>
+        </form>
+    </div>
+
+    <!-- Tabel Database Buku -->
+    <div class="glass p-8 rounded-2xl shadow-2xl">
+        <h2 class="text-3xl font-bold mb-6 text-purple-400">Database Perpustakaan</h2>
+        <div class="overflow-x-auto rounded-lg border border-gray-700/50">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-gray-800/50 text-gray-300">
+                    <tr>
+                        <th class="py-4 px-6 text-sm">ID</th>
+                        <th class="py-4 px-6 text-sm">Judul</th>
+                        <th class="py-4 px-6 text-sm">Penulis</th>
+                        <th class="py-4 px-6 text-sm">Status</th>
+                        <th class="py-4 px-6 text-sm">Peminjam</th>
+                        <th class="py-4 px-6 text-sm text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-800/50">
+                    {% for b in buku %}
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="py-4 px-6 text-gray-500">#{{ b['id'] }}</td>
+                        <td class="py-4 px-6 font-semibold text-gray-200">{{ b['judul'] }}</td>
+                        <td class="py-4 px-6 text-gray-400">{{ b['penulis'] }}</td>
+                        <td class="py-4 px-6">
+                            {% if b['status'] == 'Tersedia' %}
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-medium rounded-full border border-emerald-500/20">Tersedia</span>
+                            {% else %}
+                                <span class="px-3 py-1 bg-rose-500/10 text-rose-400 text-xs font-medium rounded-full border border-rose-500/20">Dipinjam</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-4 px-6 text-gray-500">{{ b['nama_peminjam'] if b['nama_peminjam'] else '-' }}</td>
+                        <td class="py-4 px-6 text-center">
+                            {% if b['status'] == 'Dipinjam' %}
+                                <a href="/kembalikan/{{ b['id'] }}" class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg transition-colors shadow-lg hover:shadow-indigo-500/40">Kembalikan</a>
+                            {% else %}
+                                <span class="text-xs text-gray-600">-</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
